@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # MIT License
 # 
 # Copyright (c) 2017 Sean-Jiun Wang
@@ -27,7 +26,7 @@ import click
 import concurrent.futures
 import tqdm
 
-import utils
+from . import utils
 
 
 def copy(url, dst):

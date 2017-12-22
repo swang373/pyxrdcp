@@ -10,9 +10,31 @@ This was developed, tested, and used at **cmslpc**, but it should work for **lxp
 * xrdcp
 * voms-proxy-init
 
-*All* of these are taken care of by setting up a CMSSW environment, e.g. `CMSSW_9_4_0_pre3`.
+*All* of these are taken care of by setting up a CMSSW environment, e.g. `CMSSW_9_4_0_pre3`, and then creating a Python virtual environment based on the interpreter distributed with CMSSW using the following commands:
 
-I'm not distributing this as a Python package, so you should either copy the files in the repository to your working area or download and unpack the tarball of the standalone version packaged using pyinstaller.
+```bash
+virtualenv -p "$(which python)" venv
+
+# Activate the virtual environment (must be done every time)
+source venv/bin/activate
+
+# Deactivate an active virtual environment
+deactivate
+```
+
+Once the virtual environment is activated, installing is simply
+
+```bash
+pip install pyxrdcp
+```
+
+If you must build it manually, download the release tarball, unpack it, and install using setuptools:
+
+```bash
+# Example to be filled in
+```
+
+If all else fails, you can simply download the `pyxrdcp.py` and `utils.py` files within the `pyxrdcp` directory of the repository and drop them in your working directory. They should work assuming the depencies are satisfied.
 
 ## Usage
 
@@ -32,22 +54,18 @@ There are also two options:
 
 And if you forget all this or want to see the usage syntax quickly, just invoke the command with the usual `-h` or `--help` option.
 
-If you downloaded the files, you can invoke the command line utility as the Python script that it is:
+A few examples of calling the command:
 
 ```bash
-python pyxrdcp filelist.txt root://cmseos.fnal.gov///store/user/some_user/some_dataset -j 4 --redirector xrootd-cms.infn.it
+pyxrdcp filelist.txt root://cmseos.fnal.gov///store/user/some_user/some_dataset --redirector xrootd-cms.infn.it
+
+pyxrdcp filelist.txt root://eosuser.cern.ch///store/user/s/some_user/some_dataset -j 8 --redirector cmsxrootd.fnal.gov
 ```
 
-If you downloaded the tarball, simply unpack it and use the executable:
-
-```bash
-./pyxrdcp filelist.txt root://eosuser.cern.ch///store/user/s/some_user/some_dataset -j 8 --redirector cmsxrootd.fnal.gov
-```
-
-Either way, you should see a progress tracker for the number of copy jobs completed and the number of successful and failed jobs.
+You should see a progress tracker for the number of copy jobs completed and the number of successful and failed jobs.
 
 ## Troubleshooting
 
 * The underlying call to `xrdcp` uses the `--silent` and `--posc` options and not `--force` (if the file already exists at the destination, the copy will fail).
 * Any messages that would've been emitted to stderr are redirected to stdout and will stack above the progress tracker, so no debugging information is lost.
-* The executable can hang if it is trying to access remote files that require a VOMS proxy (the underlying call to `xrdcp` will prompt the user for a password). The easiest way to avoid that is to have a valid VOMS proxy before executing the command..
+* The executable will hang if it is trying to access remote files that require a VOMS proxy but one isn't available (the underlying call to `xrdcp` will prompt the user for a password). The easiest way to avoid that is to have a valid VOMS proxy before executing the command.
