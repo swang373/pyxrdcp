@@ -4,13 +4,7 @@ The files composing the real and simulated datasets analyzed by the Compact Muon
 
 ## Installation
 
-This was developed, tested, and used at **cmslpc**, but it should work for **lxplus** or any other environment where the following dependencies are installed:
-
-* Python 2.7 (and various Python packages...)
-* xrdcp
-* voms-proxy-init
-
-*All* of these are taken care of by setting up a CMSSW environment, e.g. `CMSSW_9_4_0_pre3`, and then creating a Python virtual environment based on the interpreter distributed with CMSSW using the following commands:
+This was developed, tested, and used at **cmslpc**, but works on **lxplus** as well. Ostensibly, it should just work in any CMSSW environment that supports Python 2.7, e.g. `CMSSW_9_4_0_pre3`. The cleanest way to install is to create a Python virtual environment based on the interpreter distributed with CMSSW using the following commands:
 
 ```bash
 virtualenv -p "$(which python)" venv
