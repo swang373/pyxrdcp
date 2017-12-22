@@ -28,7 +28,7 @@ There are also two options:
 * `-j`, `--maxworkers`
   The number of concurrent workers executing copy jobs. The default is the number of available cores.
 * `--redirector`
-  This is the XRootD used when transforming logical filenames to XRootD URLs. The default is the global redirector `cms-xrd-global.cern.ch`.
+  This is the XRootD redirector used to transform logical filenames to XRootD URLs. The default is the global redirector `cms-xrd-global.cern.ch`.
 
 And if you forget all this or want to see the usage syntax quickly, just invoke the command with the usual `-h` or `--help` option.
 
@@ -50,4 +50,4 @@ Either way, you should see a progress tracker for the number of copy jobs comple
 
 * The underlying call to `xrdcp` uses the `--silent` and `--posc` options and not `--force` (if the file already exists at the destination, the copy will fail).
 * Any messages that would've been emitted to stderr are redirected to stdout and will stack above the progress tracker, so no debugging information is lost.
-* The executable can hang if it is trying to access remote files that require a VOMS proxy (the underlying call to `xrdcp` will prompt the user for a password). Easiest way to avoid that is to always have a valid VOMS proxy created.
+* The executable can hang if it is trying to access remote files that require a VOMS proxy (the underlying call to `xrdcp` will prompt the user for a password). The easiest way to avoid that is to have a valid VOMS proxy before executing the command..
