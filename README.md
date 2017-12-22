@@ -22,19 +22,24 @@ source venv/bin/activate
 deactivate
 ```
 
-Once the virtual environment is activated, installing is simply
+With the virtual environment activated, installation is simple:
 
 ```bash
 pip install pyxrdcp
 ```
 
-If you must build it manually, download the release tarball, unpack it, and install using setuptools:
+If you must build it manually, download the release tarball, unpack it, and install using the following commands:
 
 ```bash
-# Example to be filled in
+curl -OL https://github.com/swang373/pyxrdcp/archive/<version>.tar.gz
+tar -zxf <version>.tar.gz
+cd pyxrdcp-<version>
+python setup.py install
 ```
 
-If all else fails, you can simply download the `pyxrdcp.py` and `utils.py` files within the `pyxrdcp` directory of the repository and drop them in your working directory. They should work assuming the depencies are satisfied.
+Once the installation is finished, you should find the command `pyxrdcp` is now available for use in your shell.
+
+As a last resort, you could download the `pyxrdcp.py` and `utils.py` files within the `pyxrdcp` directory of the repository and drop them in your working directory. They should work assuming the depencies are satisfied. Your mileage may vary... :trollface:
 
 ## Usage
 
@@ -63,6 +68,14 @@ pyxrdcp filelist.txt root://eosuser.cern.ch///store/user/s/some_user/some_datase
 ```
 
 You should see a progress tracker for the number of copy jobs completed and the number of successful and failed jobs.
+
+If you downloaded the files from the repository because you couldn't get it to install, you'll have to invoke the script explicitly:
+
+```bash
+python pyxrdcp.py filelist.txt root://cmseos.fnal.gov///store/user/some_user/some_dataset --redirector xrootd-cms.infn.it
+
+python pyxrdcp.py filelist.txt root://eosuser.cern.ch///store/user/s/some_user/some_dataset -j 8 --redirector cmsxrootd.fnal.gov
+```
 
 ## Troubleshooting
 
