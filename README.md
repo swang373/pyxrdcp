@@ -28,7 +28,7 @@ With the virtual environment activated, installation is simple:
 pip install pyxrdcp
 ```
 
-If you must build it manually, download the release tarball, unpack it, and install using the following commands:
+This takes care of installing any missing Python packages as well. If you must build it manually, download the release tarball, unpack it, and install using the following commands:
 
 ```bash
 curl -OL https://github.com/swang373/pyxrdcp/archive/<version>.tar.gz
