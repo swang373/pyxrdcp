@@ -1,6 +1,8 @@
 # pyxrdcp
 
-The files composing the real and simulated datasets analyzed by the Compact Muon Solenoid (CMS) experiment are distributed globally and in large part accessed using the XRootD protocol. A common task is the bulk transfer of files from one data center to another in order to reduce the latency for those analysts further from CERN and provide a measure of redundancy. In such a large collaboration, there are probably tools which already exist for this purpose, but in my ignorance of them I've created this quick and dirty wrapper around the `xrdcp` command line utility.
+The files composing the real and simulated datasets analyzed by the Compact Muon Solenoid (CMS) experiment are distributed globally and in large part accessed using the XRootD protocol. A common task is the bulk transfer of files from one data center to another in order to reduce the latency for those analysts further from CERN and provide a measure of redundancy. In such a large collaboration, there are probably tools which already exist for this purpose, but in my ignorance of them I've created this simple wrapper around the `xrdcp` command line utility.
+
+*Keep in mind that this project is in no way endorsed by or affiliated with the official XRootD project.*
 
 ## Installation
 
@@ -75,4 +77,4 @@ python pyxrdcp.py filelist.txt root://eosuser.cern.ch///store/user/s/some_user/s
 
 * The underlying call to `xrdcp` uses the `--silent` and `--posc` options and not `--force` (if the file already exists at the destination, the copy will fail).
 * Any messages that would've been emitted to stderr are redirected to stdout and will stack above the progress tracker, so no debugging information is lost.
-* The executable will hang if it is trying to access remote files that require a VOMS proxy but one isn't available (the underlying call to `xrdcp` will prompt the user for a password). The easiest way to avoid that is to have a valid VOMS proxy before executing the command.
+* The executable will hang if it is trying to access remote files that require a VOMS proxy but one isn't available (the underlying call to `xrdcp` will prompt the user for a password but the user won't be able to respond). The easiest way to avoid that is to have a valid VOMS proxy before executing the command.
